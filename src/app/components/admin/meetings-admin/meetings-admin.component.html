@@ -1,0 +1,119 @@
+<app-loading-overlay *ngIf="displayLoading"></app-loading-overlay>
+
+<div class="page-header" class="text-center">
+    <h5>Meeting</h5>
+    <h1>Admin</h1>
+</div>
+
+<div class="row mt-5 mb-3 col-12">
+    <button class="btn btn-secondary" (click)="getMeetings()">
+        <i class="fas fa-sync"></i>
+    </button>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="jim-table-responsive">
+
+            <div *ngIf="!displayLoading && meetings.length == 0 "class="alert alert-info" Rol="alert">
+                No hay reuniones registradas
+            </div>
+
+            <table class="table table-striped " *ngIf="meetings.length > 0 ">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="text-center" >Nombre</th>
+                        <th scope="col" class="text-center" >Usuario</th>
+                        <th scope="col" class="text-center  " >Tipo</th>
+                        <th scope="col" class="text-center  " >Habilitado</th>
+                        <th scope="col" class="text-center " >Fecha Alta</th>
+                        <th scope="col" class="text-center" style="width: 10%">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let meeting of filteredMeetings, index as i">
+                        <td data-label="Nombre" >{{ meeting.name }}</td>
+                        <td data-label="Usuario">
+                            <span  *ngIf="meeting.type =='REGISTERED'" >{{ meeting.userAuth.name }} <br> <small>{{ meeting.userAuth.email }} </small> </span>
+                            <span  *ngIf="meeting.type =='UNREGISTERED'">{{ meeting.userUnregistered.name }} - <small>{{ meeting.userUnregistered.email }} </small> </span>
+                        </td>
+                        <td data-label="Tipo"> 
+                            <span *ngIf="meeting.type =='REGISTERED'" class="badge badge-pill badge-primary">{{meeting.type}}</span> 
+                            <span *ngIf="meeting.type =='UNREGISTERED'" class="badge badge-pill badge-success">{{meeting.type}}</span> 
+
+                        </td>
+                        <td data-label="Habilitado" class="text-center">
+                            <span *ngIf="meeting.enable" class="badge badge-pill badge-success"><i class="fas fa-check"></i></span>
+                            <span *ngIf="!meeting.enable" class="badge badge-pill badge-danger"><i class="fas fa-times"></i></span>
+                        </td>
+
+                        <td data-label="Fecha Alta" >{{ meeting.creationDate | date:'dd/MM/yyyy' }}</td>
+                        
+                        <td data-label="Acciones">
+                            <button type="button" class="btn btn-light"  (click)="viewDetailMeeting(meeting.id)" ngbTooltip="Ver"><i class="fa fa-eye" ></i></button>
+                            <button type="button" class="btn btn-light"  (click)="deleteConfirmMeeting(meeting.id)" ngbTooltip="Borrar"><i class="fas fa-trash" style="color:red"></i></button>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div *ngIf=" !displayLoading && meetings.length > 0 "  class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+        (pageChange)="refreshTable()">
+    </ngb-pagination>
+
+    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshTable()">
+        <option [ngValue]="10">10 items por página</option>
+        <option [ngValue]="20">20 items por página</option>
+        <option [ngValue]="50">50 items por página</option>
+    </select>
+</div>
+
+
+<ng-template #modalDelete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Meeting - Eliminar</h4>
+        <span aria-hidden="true">&times;</span>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <table class="table" *ngIf="selectedMeeting">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Nombre</th>
+                            <td>{{selectedMeeting.name }}</td>                       
+                        </tr>
+                        <tr>
+                            <th scope="row">Usuario</th>
+                            <td class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block">
+                                <span  *ngIf="selectedMeeting.type =='REGISTERED'" >{{ selectedMeeting.userAuth.name }} <br> <small>{{ selectedMeeting.userAuth.email }} </small> </span>
+                                <span  *ngIf="selectedMeeting.type =='UNREGISTERED'">{{ selectedMeeting.userUnregistered.name }} - <small>{{ selectedMeeting.userUnregistered.email }} </small> </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tipo</th>
+                            <td> 
+                                <span *ngIf="selectedMeeting.type =='REGISTERED'" class="badge badge-pill badge-primary">{{selectedMeeting.type}}</span> 
+                                <span *ngIf="selectedMeeting.type =='UNREGISTERED'" class="badge badge-pill badge-success">{{selectedMeeting.type}}</span> 
+    
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary"
+            (click)="modal.dismiss('cancel click')">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Ok click')">Aceptar</button>
+    </div>
+</ng-template>
+
+

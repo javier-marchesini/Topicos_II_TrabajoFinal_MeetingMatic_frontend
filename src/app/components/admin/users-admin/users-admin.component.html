@@ -1,0 +1,100 @@
+<app-loading-overlay *ngIf="displayLoadingUserRegistered || displayLoadingUserUnRegistered"></app-loading-overlay>
+<div class="page-header" class="text-center">
+    <h5>Meeting</h5>
+    <h1>Administración de Usuarios</h1>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5">
+            <li ngbNavItem>
+                <a ngbNavLink>Usuarios Registrados</a>
+                <ng-template ngbNavContent>
+        
+                    <table class="table " *ngIf="registeredUsersFiltered.length > 0 ">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="">Nombre</th>
+                                <th scope="col" class=" d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block">Email</th>
+                                <th scope="col" class="text-center">Tipo de Cuenta</th>
+                                <th scope="col"
+                                    class="text-center  d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block">Fecha Alta
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of registeredUsersFiltered, index as i">
+                                <td>{{ user.name }}</td>
+                                <td class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block">
+                                    {{user.email}}
+                                </td>
+                                <td class="text-center">
+                                    {{user.accountType}}
+                                </td>
+                                <td class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block text-center">
+                                    {{ user.creationDate | date:'dd/MM/yyyy' }}
+                                </td>
+        
+                            </tr>
+                        </tbody>
+                    </table>
+        
+                    <!--    <div *ngIf="registeredUsers.length > 0"  class="d-flex justify-content-between p-2">
+                        <ngb-pagination [collectionSize]="collectionSizeTableRegisteredUsers" [(page)]="pageTableRegisteredUsers" [pageSize]="pageSizeTableRegisteredUsers"
+                            (pageChange)="refreshTableRegisteredUsers()">
+                        </ngb-pagination>
+                    
+                        <select class="custom-select" style="width: auto" [(ngModel)]="pageTableRegisteredUsers" (ngModelChange)="refreshTableRegisteredUsers()">
+                            <option [ngValue]="10">10 items por página</option>
+                            <option [ngValue]="20">20 items por página</option>
+                            <option [ngValue]="50">50 items por página</option>
+                        </select>
+                    </div> -->
+        
+                </ng-template>
+            </li>
+        
+        
+            <li ngbNavItem>
+                <a ngbNavLink>Usuarios No Registrados</a>
+                <ng-template ngbNavContent>
+        
+        
+                    <table class="table " *ngIf="unregisteredUsersFiltered.length > 0 ">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="">Nombre</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Fecha Alta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of unregisteredUsersFiltered, index as i">
+                                <td>{{ user.name }}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{ user.creationDate | date:'dd/MM/yyyy' }}
+                                </td>
+        
+                            </tr>
+                        </tbody>
+                    </table>
+        
+        
+                </ng-template>
+            </li>
+        </ul>
+        
+        
+        
+        
+        
+        <div [ngbNavOutlet]="nav" class="mt-3">
+        
+    </div>
+</div>
+
+
+
+
+</div>

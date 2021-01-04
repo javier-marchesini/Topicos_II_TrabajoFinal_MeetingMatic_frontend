@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand mr-5" [routerLink]="['/']">
+            <img src="assets/img/logo.png" style="width: 150px;">
+        </a>
+        <button class="navbar-toggler btn btn-outline-primary" type="button" data-toggle="collapse"
+            data-target="#navbarMeeting" aria-expanded="false" aria-label="Toggle navigation"
+            (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+            aria-controls="navbarMeeting">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMeeting" [ngbCollapse]="isCollapsed">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item"  routerLinkActive="active" *ngFor="let item of menu">
+                    <a class="nav-link" routerLink="{{item.routerLink}}">{{item.nombre}} <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+          
+          
+            <div ngbDropdown class="d-inline-block" *ngIf="currentUser">
+                <button class="btn btn-primary " id="dropdownBasic1" ngbDropdownToggle> {{currentUser.name}} <i
+                        class="fa fa-user-o pull-right" aria-hidden="true"></i></button>
+
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <div ngbDropdownItem class="text-primary">{{currentUser.name}}<br>
+                        <small>{{currentUser.email}}</small></div>
+                    <div class="dropdown-divider"></div>
+                    <button ngbDropdownItem [routerLink]="['/user/profile']">Perfil <i class="fa fa-user pull-right"
+                            aria-hidden="true"></i></button>
+                    <div class="dropdown-divider"></div>
+                    <button ngbDropdownItem (click)="logout()">Logout</button>
+
+                </div>
+            </div>
+
+
+            <a *ngIf="!currentUser" [routerLink]="['/user/signup']" class="btn btn-success my-2 my-sm-0"
+                type="submit">Registrarse</a>
+        </div>
+    </div>
+</nav>

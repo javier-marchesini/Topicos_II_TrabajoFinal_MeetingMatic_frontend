@@ -1,0 +1,111 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
+/*@import './assets/css/bootstrap.min.css';*/
+
+
+
+@import '~ngx-toastr/toastr';
+ 
+
+
+html {
+    position: relative;
+    min-height: 100%;
+    
+  }
+  body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+  }
+  
+  
+  /* Custom page CSS
+  -------------------------------------------------- */
+  /* Not required for template or sticky footer method. */
+   /* Fonts settings */
+  body, p, .navbar, .brand, a, .td-name, td, button, input, select, textarea {
+    font-family: "Roboto", "Helvetica", Arial, sans-serif;
+  }
+
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6,
+  .title, .card-title, .info-title, .footer-brand, .footer-big h5, .footer-big h4, .media .media-heading {
+    font-family: "Dosis", "Helvetica", Arial, sans-serif;
+    font-weight: 600;
+  }
+
+body > .container {
+    padding: 60px 15px 0;
+  }
+  .container {
+    width: 1200px;
+    max-width: 100%;
+}
+  
+  .footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  code {
+    font-size: 80%;
+  }
+
+
+  .invalid-feedback {
+    display: inline;
+    font-size: 100%;
+    left: 0;
+}
+
+form label.required:after
+{
+    color: red;
+    content: " *";
+}
+
+
+.fc-event-main {
+    text-align: center;
+}
+
+
+/* CSS for smaller view spaces */
+@media screen and (max-width: 768px) {
+
+    /* hide table headings */
+    .jim-table-responsive table thead {
+        display: none;
+    }
+
+    /* treat rows like divs */
+    .jim-table-responsive table tr {
+        display: block;
+        border-top: 2px solid lightgray; /* separate row data with thicker line */
+        margin-top: 5px;
+    }
+
+    /* treat columns like divs */
+    .jim-table-responsive table td {
+        display: block;
+        text-align: right; /* text to right */
+    }
+
+    /* this part is ugly, but necessary to show label on left */
+    .jim-table-responsive table td:before {
+        content: attr(data-label);
+        float: left; /* label to left */
+        font-weight: 700;
+        font-size: 13px;
+    }
+}
+

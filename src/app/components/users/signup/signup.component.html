@@ -1,0 +1,62 @@
+<app-loading-overlay *ngIf="displayLoading"></app-loading-overlay>
+
+<div class="page-header" class="text-center">
+    <h5>Meeting-o-matic</h5>
+    <h1>Crear cuenta</h1>
+</div>
+
+<div class="row justify-content-md-center mt-5">
+
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" formControlName="name">
+                        
+                        <div *ngIf="signUpForm.get('name').hasError('required') &&  signUpForm.get('name').touched" class="invalid-feedback">
+                          <small>Campo requerido</small>  
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="email" class="form-control" formControlName="email">
+                        <div *ngIf="signUpForm.get('email').hasError('required') &&  signUpForm.get('email').touched" class="invalid-feedback">
+                            <small>Campo requerido</small>  
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" class="form-control" formControlName="password">
+                        <div *ngIf="signUpForm.get('password').hasError('required') &&  signUpForm.get('password').touched" class="invalid-feedback">
+                            <small>Campo requerido</small>  
+                        </div>
+                        <div *ngIf="signUpForm.get('password').hasError('pattern') &&  signUpForm.get('password').touched" class="invalid-feedback">
+                            <small>Contraseña no vàlida.<br>
+                                    - 8 caracteres mínimos <br>
+                                    - Debe comenzar con Mayuscula<br>
+                                    - Debe tener al menos un numero <br>
+                                    - Debe tener al menos un caracter especial @$!%*?&<br>
+                            </small>  
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Repeat Password</label>
+                        <input type="password" class="form-control" formControlName="passwordConfirm">
+                        <div *ngIf="signUpForm.get('passwordConfirm').hasError('required') &&  signUpForm.get('passwordConfirm').touched" class="invalid-feedback">
+                            <small>Campo requerido</small>  
+                        </div>
+                        <div *ngIf="signUpForm.hasError('password-confirm-invalid') && signUpForm.get('passwordConfirm').touched && signUpForm.get('password').touched " class="invalid-feedback">
+                            <small>Las password no coinciden</small>  
+                        </div>
+                    </div>
+
+                    <button type="submit" [disabled]="!signUpForm.valid" class="btn btn-primary btn-lg btn-block">Enviar</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

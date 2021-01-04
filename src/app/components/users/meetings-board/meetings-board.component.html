@@ -1,0 +1,104 @@
+<app-loading-overlay *ngIf="displayLoading"></app-loading-overlay>
+
+<div class="page-header" class="text-center">
+    <h5>Meeting</h5>
+    <h1>Board</h1>
+</div>
+
+
+
+<div class="row mt-5 col-12">
+    <button [routerLink]="['/meeting/create']" class="btn btn-secondary"
+        [disabled]="isFreeAccountType && getTotalMeetingsCurrentMonth() >= 10">
+        Crear Meeting
+    </button>
+</div>
+
+<div class="row justify-content-md-center mt-5 col-12">
+
+    <div class="col-md-12">
+        <div class="jim-table-responsive">
+            <table class="table table-striped" *ngIf="meetings.length > 0">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block">
+                            Descripción</th>
+                        <th scope="col" class="text-center">Matches</th>
+                        <th scope="col" class="text-center d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block">
+                            Fecha Alta</th>
+                        <th scope="col" class="text-center ">Habilitado</th>
+                        <th scope="col" class="text-center" style="width: 20%;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let meeting of filteredMeetings, index as i">
+                        <td data-label="Nombre">
+                            <ngb-highlight [result]="meeting.name"></ngb-highlight>
+                        </td>
+                        <td data-label="Descripción"
+                            class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block">
+                            <ngb-highlight [result]="meeting.description"></ngb-highlight>
+                        </td>
+
+                        <td data-label="Matches" *ngIf="meeting.meetingMatches" class="text-center">
+                            <span class="badge badge-success">
+                                <ngb-highlight [result]="meeting.meetingMatches?.length"></ngb-highlight>
+                            </span>
+                        </td>
+
+                        <td data-label="Matches" *ngIf="!meeting.meetingMatches" class="text-center">
+                            <span class="badge badge-light "> 0 </span>
+                        </td>
+                        <td data-label="Fecha Alta" class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block">
+                            {{ meeting.creationDate
+                            | date:'dd/MM/yyyy' }}</td>
+                        <td data-label="Habilitado" class="text-center">
+                            <span *ngIf="meeting.enable" class="badge badge-pill badge-success"><i class="fas fa-check"></i></span>
+                            <span *ngIf="!meeting.enable" class="badge badge-pill badge-danger"><i class="fas fa-times"></i></span>
+                        </td>
+
+                        <td data-label="Acciones" class="text-center">
+
+                            <button type="button" class="btn btn-light" (click)="viewDetailMeeting(i)"
+                                ngbTooltip="Detalle"><i class="fa fa-eye"></i></button>
+
+                            <button type="button" class="btn btn-light" (click)="cloneMeeting(i)" ngbTooltip="Clonar"><i
+                                    class="far fa-copy"></i></button>
+
+                            <button type="button" class="btn btn-light" (click)="viewMatchesMeeting(i)"
+                                ngbTooltip="Matches"><i class="fas fa-user-check" style="color:green"></i></button>
+
+                            <button *ngIf="meeting.enable"  type="button" class="btn btn-light" (click)="enabledisableMeeting(i)"
+                                ngbTooltip="Deshabilitar">
+                                <i class="fas fa-calendar-times"></i>
+                            </button>
+                            <button *ngIf="!meeting.enable"  type="button" class="btn btn-light" (click)="enabledisableMeeting(i)"
+                                ngbTooltip="Habilitar">
+                               <i class="far fa-calendar-check"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf=" !displayLoading && meetings.length > 0 "  class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+                (pageChange)="refreshTable()">
+            </ngb-pagination>
+        
+            <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshTable()">
+                <option [ngValue]="10">10 items por página</option>
+                <option [ngValue]="20">20 items por página</option>
+                <option [ngValue]="50">50 items por página</option>
+            </select>
+        </div>
+        <div *ngIf="isFreeAccountType" class="alert alert-info mt-3" Rol="alert">
+                    Tu cuenta es FREE, solo puedes registrar hasta 10 meetings mensuales. Te quedan {{10 - this.getTotalMeetingsCurrentMonth()}}
+                    disponibles para este mes.
+                    <hr>
+                    Para acceder a la version PRO haga click <a href="#">aqui</a>
+        </div>
+
+    </div>
+</div>

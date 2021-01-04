@@ -1,0 +1,89 @@
+
+
+<div class="page-header" class="text-center">
+    <h5>Meeting</h5>
+	<h2>Detalle</h2>
+</div>
+<div class="col-md-12">
+<div class="row justify-content-md-center mt-5 col-12">
+	<div class="col-md-12">
+    
+        <div *ngIf="meeting == null" class="alert alert-info" Rol="alert">
+            No se ha seleccionado ninguna Meeting
+        </div>
+    
+        <div *ngIf="meeting != null" class="card  ">
+			<div class="card-header">
+				<h4>{{meeting.name | uppercase}}</h4>
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<tbody>
+						<tr>
+							<th scope="row">Organizador</th>
+                            <td class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block">
+                                <span  *ngIf="meeting.type =='REGISTERED'" >{{ meeting.userAuth.name }} <br> <small>{{ meeting.userAuth.email }} </small> </span>
+                                <span  *ngIf="meeting.type =='UNREGISTERED'">{{ meeting.userUnregistered.name }} - <small>{{ meeting.userUnregistered.email }} </small> </span>
+                            </td>
+						</tr>
+						<tr>
+							<th scope="row">Nombre</th>
+							<td>{{meeting.name}}</td>
+						</tr>
+						<tr>
+							<th scope="row">Descripcion</th>
+							<td>{{meeting.description}}</td>
+						</tr>
+						<tr>
+							<th scope="row">Lugar</th>
+							<td>{{meeting.place}}</td>
+						</tr>
+						<tr>
+							<th scope="row"> Admin Access</th>
+							<td>
+								<div class="input-group mt-3 mb-3" >
+									<input type="text" class="form-control" [(ngModel)]="adminUrl" #adminUrlInput readonly>
+									<div class="input-group-append">
+									  <button class="btn btn-primary" type="button" (click)="copyInputText(adminUrlInput)"><i class="fa fa-copy"></i> Copy</button>
+									</div>
+								</div>
+
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">Public Access</th>
+							<td>		
+								<div class="input-group mt-3">
+									<input type="text" class="form-control" [(ngModel)]="publicUrl"  #publicnUrlInput readonly>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">Password</th>
+							<td>{{meeting.password}}</td>
+						</tr>
+						<tr>
+							<th scope="row">Compartir</th>
+							<td class="text-danger"><button class="btn btn-primary" type="button" (click)="copyInvitation()"><i class="fas fa-clipboard"></i>
+								Copiar Invitación</button></td>
+						</tr>
+					</tbody>
+				  </table>
+				  <div class="card  mt-5">
+					<div class="card-body">
+						<full-calendar #calendardetail [options]="calendarOptions"></full-calendar>
+					</div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center mt-4">
+                        <button type="button" class="btn btn-primary mr-3" (click)="volver()" >Volver</button>
+                    </div>
+                </div>
+			
+			</div>
+		</div>
+	</div>
+
+   
+	
+</div>

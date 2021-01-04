@@ -1,0 +1,15 @@
+<div class="row" class="text-center">
+    <div class="col-12">
+        <img src="assets/img/error.png" width="40%">
+    </div>
+    <div class="col-12  text-center mt-3">
+        <h2 class="small-text text-danger">{{error.titulo}}</h2>
+        <h4>{{error.mensaje}}</h4>
+        <div class="alert alert-dismissible alert-danger col-12 mt-5">
+            <p>{{error.descripcion}}</p>
+        </div>
+        <button type="button" class="btn btn-primary mt-5" [routerLink]="['/inicio']">Volver</button>
+
+    </div>
+</div>
+

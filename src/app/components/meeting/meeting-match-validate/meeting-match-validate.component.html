@@ -1,0 +1,58 @@
+<app-loading-overlay *ngIf="displayLoading"></app-loading-overlay>
+<div class="page-header" class="text-center">
+    <h5>Meeting</h5>
+    <h1>Match</h1>
+</div>
+<div class="row justify-content-md-center mt-5">
+	<div class="col-md-6">
+		<div class="card  ">
+			<div class="card-body">
+                <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <img class="fix" width="100" height="100" border="0" alt="" src="https://img.icons8.com/doodle/128/000000/apple-calendar.png"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-12 d-flex text-center pt-2">
+                                <h6>Haz ingresado a través de un link de invitación para el match de la reunión.</h6>
+                            </div>
+                    </div>
+                    <div class="row pt-3">
+                        <table class="table pt-3" *ngIf="meeting">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Nombre</th>
+                                    <td>{{meeting.name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Descripcion</th>
+                                    <td>{{meeting.description}}</td>
+                                </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="row" *ngIf="enabledMeeting">
+                        <div class="form-group col-12 pt-3">
+                            <label class="required" >Password</label>
+                            <input type="text" class="form-control" formControlName="password">
+                            <div *ngIf="meetingForm.get('password').hasError('required') &&  meetingForm.get('password').touched" class="invalid-feedback">
+                                <small>Campo requerido</small>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="enabledMeeting" >
+						<div class="col d-flex justify-content-center mt-4">
+							<button type="submit" class="btn btn-primary mr-3" [disabled]="meetingForm.invalid">Aceptar</button>
+                            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/inicio']">Cancelar</button>
+						</div>
+                    </div>
+
+                </form>
+                <div class="alert alert-info" role="alert" *ngIf="!enabledMeeting">
+                    La reunion ha sido deshabilitada por el organizador.
+                </div>
+			</div>
+		</div>
+	</div>
+</div>

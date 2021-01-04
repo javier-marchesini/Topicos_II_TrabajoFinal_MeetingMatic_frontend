@@ -1,0 +1,13 @@
+<div class="row" class="text-center">
+    <div class="col-12">
+        <img src="assets/img/matchSuccess.png" width="70%">
+    </div>
+    <div class="col-12  text-center mt-5">
+        <h2 class="small-text text-primary">Has enviado el match para la reunión '{{meetingMatch.meeting.name}}'</h2>
+        
+        <h4>Se ha enviado un correo a la cuenta <span class="text-success">{{meetingMatch.userUnregistered.email}} </span> con el detalle del match</h4>
+        <button type="button" class="btn btn-primary mt-5" [routerLink]="['/inicio']">Volver</button>
+    </div>
+</div>
+
+

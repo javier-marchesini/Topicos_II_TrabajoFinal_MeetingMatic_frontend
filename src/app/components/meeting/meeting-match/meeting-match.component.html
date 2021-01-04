@@ -1,0 +1,92 @@
+<app-loading-overlay *ngIf="displayLoading"></app-loading-overlay>
+<div class="page-header" class="text-center">
+    <h5>Meeting</h5>
+    <h2>Match</h2>
+</div>
+
+<form [formGroup]="matchForm" (ngSubmit)="onSubmit()">
+    <div class="row justify-content-md-center mt-5 col-12">
+
+        <div class="col-12">
+            <div class="card  ">
+                <div class="card-header">Invitado</div>
+                <div class="card-body" formGroupName="additionalProp1">
+                    <div class="form-row" formGroupName="user">
+                        <div class="form-group col-6">
+                            <label class="required">Nombre</label>
+                            <input type="text" class="form-control" formControlName="name">
+                            <div *ngIf="matchForm.get('additionalProp1').get('user').get('name').hasError('required') &&  matchForm.get('additionalProp1').get('user').get('name').touched"
+                                class="invalid-feedback">
+                                <small>Campo requerido</small>
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="required">Email</label>
+                            <input type="email" class="form-control" formControlName="email">
+                            <div *ngIf="matchForm.get('additionalProp1').get('user').get('email').hasError('required') &&  matchForm.get('additionalProp1').get('user').get('email').touched"
+                                class="invalid-feedback">
+                                <small>Campo requerido</small>
+                            </div>
+                            <div *ngIf="matchForm.get('additionalProp1').get('user').get('email').hasError('pattern') &&  matchForm.get('additionalProp1').get('user').get('email').touched"
+                                class="invalid-feedback">
+                                <small>Correo no válido</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card  ">
+                <div class="card-header">
+                    Meeting - Detalle
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr *ngIf="meeting.userUnregistered">
+                                <th scope="row">Organizador</th>
+                                <td>{{meeting.userUnregistered.name}} - {{meeting.userUnregistered.email}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nombre</th>
+                                <td>{{meeting.name}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Descripcion</th>
+                                <td>{{meeting.description}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Lugar</th>
+                                <td>{{meeting.place}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="card  mt-5">
+                        <div class="card-body">
+                            <h5 class="mb-3">Seleccione los eventos para match</h5>
+                            <full-calendar class="mb-3" #calendar [options]="calendarOptions"></full-calendar>
+                            <div *ngIf="matchForm.get('alternativesMatched').hasError('required') && eventClicked" class="invalid-feedback ">
+                                <small>Debe matchear con algún evento</small>  
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col d-flex  mt-4">
+                            (<span style="color:red">*</span>) Campos requeridos
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center mt-4">
+                            <button type="submit" class="btn btn-primary mr-3"
+                                [disabled]="matchForm.invalid">Aceptar</button>
+                            <button type="button" class="btn btn-outline-secondary"
+                                data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>

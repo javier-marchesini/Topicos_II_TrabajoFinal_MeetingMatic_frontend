@@ -1,0 +1,64 @@
+<app-loading-overlay *ngIf="displayLoading"></app-loading-overlay>
+<div class="page-header" class="text-center">
+    <h5>Meeting</h5>
+    <h1>Matchs</h1>
+</div>
+
+<div class="card  mt-5" *ngIf="meeting">
+    <div class="card-header">
+        <h4>{{meeting.name | uppercase}}</h4>
+    </div>
+    <div class="card-body" >
+        <table class="table">
+            <tbody>
+                <tr *ngIf="meeting.userUnregistered">
+                    <th scope="row">Organizador</th>
+                    <td>{{meeting.userUnregistered.name}} - {{meeting.userUnregistered.email}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Nombre</th>
+                    <td>{{meeting.name}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Descripcion</th>
+                    <td>{{meeting.description}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Lugar</th>
+                    <td>{{meeting.place}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card  mt-5">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <full-calendar #calendardetail [options]="calendarOptions"></full-calendar>
+            </div>
+            <div class="col-md-4 col-sm-12" *ngIf="users">
+                <h3>Matchers <span class="badge badge-pill badge-success">{{users.length}}</span></h3>
+                <ul class="list-group">
+                    <li *ngFor="let user of users; index as i" class="list-group-item d-flex  align-items-center">
+                        <div class="d-flex w-100 justify-content-between">
+                           <span style="font-size: 30px;"><i class="fa fa-user" [style.color]="user.color"></i></span>
+                        </div>
+                        <div class="col-xs-12 col-sm-10">
+                            <h6 class="mb-1">{{user.name}} </h6>
+                            <small>{{user.email}} </small>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col d-flex justify-content-center mt-4">
+        <button type="button" class="btn btn-primary mr-3" (click)="volver()" >Volver</button>
+    </div>
+</div>
