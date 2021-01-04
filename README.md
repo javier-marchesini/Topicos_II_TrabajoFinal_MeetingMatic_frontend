@@ -2,8 +2,16 @@
 ### Tópicos II 2020 | Maestría en Ingeniería de Software | Universidad Nacional de La Plata
 
 
+## Install dependencies
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
+By default, dependencies were installed when this application was generated.
+Whenever dependencies in `package.json` are changed, run the following command:
+
+```sh
+npm install
+```
+
 
 ## Development server
 
