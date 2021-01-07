@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit {
                     position: 1
                 },
                 {
-                    nombre: 'Pricing',
+                    nombre: 'Precio',
                     routerLink: 'pricing',
                     position: 2
                 },
@@ -111,7 +111,7 @@ export class HeaderComponent implements OnInit {
                     position: 2
                 },
                 {
-                    nombre: 'Pricing',
+                    nombre: 'Precio',
                     routerLink: 'pricing',
                     position: 3
                 },

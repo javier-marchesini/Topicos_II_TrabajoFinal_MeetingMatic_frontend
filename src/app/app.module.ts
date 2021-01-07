@@ -44,6 +44,7 @@ import { UsersAdminComponent } from './components/admin/users-admin/users-admin.
 import { LoadingOverlayComponent } from './components/layout/loading-overlay/loading-overlay.component';
 import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
 import { AdminBoardComponent } from './components/admin/admin-board/admin-board.component';
+import { PricingComponent } from './pages/pricing/pricing.component';
 
 registerLocaleData(localeEsAR, 'es-Ar');
 
@@ -76,6 +77,7 @@ FullCalendarModule.registerPlugins([
 		LoadingOverlayComponent,
 		UserProfileComponent,
 		AdminBoardComponent,
+		PricingComponent,
 		
 
 	],

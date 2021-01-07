@@ -1,24 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarOptions, EventApi, FullCalendarComponent, DateSelectArg, EventClickArg } from '@fullcalendar/angular';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import listPlugin from '@fullcalendar/list';
-import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { constructor } from 'moment';
-import { SignUpFormValidator } from '../../users/signup/signup-validator.component';
-import { Alternative } from 'src/app/models/alternative.model';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
 import { MeetingDataService } from 'src/app/services/meeting-data.service';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { TemplateRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/services';
 import { Rol } from 'src/app/models/rol.model';
+import { Location } from '@angular/common'
+
 
 @Component({
     selector: 'app-meeting-create-form',
@@ -79,7 +73,9 @@ export class MeetingCreateFormComponent implements OnInit {
         private _meetingDataService: MeetingDataService,
         private _authenticationService: AuthenticationService,
         private _modalService: NgbModal,
-        private router: Router
+        private router: Router,
+        private _location: Location
+        
 
     ) {
 
@@ -232,6 +228,9 @@ export class MeetingCreateFormComponent implements OnInit {
             }));
         })
 
+    }
+    cancelar() {
+        this._location.back();
     }
 }
 

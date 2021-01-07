@@ -20,6 +20,7 @@ import { MeetingsAdminComponent } from './components/admin/meetings-admin/meetin
 import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
 import { Rol } from './models/rol.model';
 import { AdminBoardComponent } from './components/admin/admin-board/admin-board.component';
+import { PricingComponent } from './pages/pricing/pricing.component';
 
 const routes: Routes = [
     { path: '', component: InicioComponent },
@@ -34,16 +35,15 @@ const routes: Routes = [
     { path: 'user/signin', component: SigninComponent },
     { path: 'user/meetings/board', component: MeetingsBoardComponent, canActivate: [AuthGuard], data: { roles: [Rol.OWNER] } },
     { path: 'user/profile', component: UserProfileComponent },
-
+    
     { path: 'admin/users', component: UsersAdminComponent,canActivate: [AuthGuard], data: { roles: [Rol.ADMIN] } },
     { path: 'admin/meetings', component: MeetingsAdminComponent, canActivate: [AuthGuard], data: { roles: [Rol.ADMIN] } },
     { path: 'admin/board', component: AdminBoardComponent },
-
+    
+    { path: 'pricing', component: PricingComponent },
 
 
     { path: 'error', component: ErrorComponent },
-    //{	path: 'meeting/auth/alta',   component: FormularioAltaComponent, canActivate: [AuthGuard] },
-    //{	path: ' ',   component: MeetingMatchValidateComponent},
     { path: '**', component: InicioComponent },
 ];
 
